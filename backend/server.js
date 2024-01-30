@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 5001
 
 const app = express()
 
+app.use(express.json())
+
 //middleware as Route
 app.use("/api/contact",contactRoute)
 
