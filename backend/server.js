@@ -1,6 +1,8 @@
 const express = require('express');
 
 const contactRoute = require('./routes/contactRoutes');
+const errorHandler = require('./middleware/errorHandler');
+
 
 require('dotenv').config();
 
@@ -8,10 +10,13 @@ const PORT = process.env.PORT || 5001
 
 const app = express()
 
+
 app.use(express.json())
+
 
 //middleware as Route
 app.use("/api/contact",contactRoute)
+app.use(errorHandler)
 
 app.get("/",(req,res)=>{
     // res.send("http://localhost:5001/api/contact")
