@@ -1,16 +1,9 @@
-const {
-  VALIDATION_ERROR,
-  UNAUTHORIZED,
-  FORBIDDEN,
-  NOT_FOUND,
-  SERVER_ERROR,
-} = require("../constant");
-
 const errorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode ? res.statusCode : 500;
+  const statusCode = req.statusCode ? req.statusCode : 500;
+  console.log("statusCode: ", statusCode);
 
   switch (statusCode) {
-    case VALIDATION_ERROR:
+    case 400:
       res.json({
         title: "VALIDATION ERROR",
         message: err.message,
@@ -18,7 +11,7 @@ const errorHandler = (err, req, res, next) => {
       });
 
       break;
-    case NOT_FOUND:
+    case 404:
       res.json({
         title: "NOT FOUND ERROR",
         message: err.message,
@@ -26,32 +19,28 @@ const errorHandler = (err, req, res, next) => {
       });
 
       break;
-    case UNAUTHORIZED:
+    case 401:
       res.json({
         title: "UNAUTHORIZED ERROR",
         message: err.message,
         stackTrack: err.stack,
       });
       break;
-    case FORBIDDEN:
+    case 403:
       res.json({
         title: "FORBIDDEN ERROR",
         message: err.message,
         stackTrack: err.stack,
       });
       break;
-    case SERVER_ERROR:
+    case 500:
       res.json({
         title: "SERVER ERROR",
         message: err.message,
         stackTrack: err.stack,
       });
       break;
-
-    default:
-      break;
   }
-  res.json({ message: err.message, stackTrack: err.stack });
 };
 
 module.exports = errorHandler;
