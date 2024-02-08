@@ -2,17 +2,20 @@ const express = require('express');
 
 const contactRoute = require('./routes/contactRoutes');
 const errorHandler = require('./middleware/errorHandler');
-
+const connectDB = require("./config/dbConnection")
 
 require('dotenv').config();
 
 const PORT = process.env.PORT || 5001
+
 
 const app = express()
 
 
 app.use(express.json())
 
+//Connecting to Mongo Atlas
+connectDB()
 
 //middleware as Route
 app.use("/api/contact",contactRoute)
