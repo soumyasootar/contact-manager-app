@@ -1,5 +1,5 @@
 const errorHandler = (err, req, res, next) => {
-  const statusCode = req.statusCode ? req.statusCode : 500;
+  const statusCode = res.statusCode ? res.statusCode : 500;
   console.log("statusCode: ", statusCode);
 
   switch (statusCode) {
@@ -40,6 +40,12 @@ const errorHandler = (err, req, res, next) => {
         stackTrack: err.stack,
       });
       break;
+    default:
+      res.json({
+        title: "ERROR",
+        message: err.message,
+        stackTrack: err.stack,
+      });
   }
 };
 
