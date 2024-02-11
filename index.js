@@ -2,7 +2,8 @@ const express = require('express');
 
 const contactRoute = require('./routes/contactRoutes');
 const errorHandler = require('./middleware/errorHandler');
-const connectDB = require("./config/dbConnection")
+const connectDB = require("./config/dbConnection");
+const userRouter = require('./routes/userRoutes');
 
 require('dotenv').config();
 
@@ -19,6 +20,7 @@ connectDB()
 
 //middleware as Route
 app.use("/api/contact",contactRoute)
+app.use("/api/user",userRouter)
 app.use(errorHandler)
 
 app.get("/",(req,res)=>{
